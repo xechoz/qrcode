@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/browse/qr-scanner@1.4.2/qr-scanner.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -19,6 +18,13 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/browse/qr-scanner@1.4.2/qr-scanner.min.js"></script>
+
+    <script type="module">
+        import QrScanner from 'https://unpkg.com/qr-scanner@1.4.2/qr-scanner.min.js';
+        
+        window.QrScanner = QrScanner; // Make it globally available
+    </script>
     <script src="qr-scanner.js"></script>
 </body>
 </html>
