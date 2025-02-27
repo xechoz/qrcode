@@ -5,14 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR Code Scanner</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://unpkg.com/@nimiq/qr-scanner/qr-scanner.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <div id="reader" style="width: 80%;"></div>
+        <h1>QR Code Scanner</h1>
+        <video id="scanner" class="scanner-video"></video>
         <div id="result">Scan Result: <span id="scanResult"></span></div>
+        <div class="scanner-controls">
+            <button id="start-scanner">Start Scanner</button>
+            <button id="stop-scanner">Stop Scanner</button>
+            <button id="toggle-flash">Toggle Flash</button>
+        </div>
     </div>
 
-    <script src="index.js"></script>
+    <script src="qr-scanner.js"></script>
 </body>
 </html>
