@@ -17,14 +17,52 @@
             <button id="toggle-flash">Toggle Flash</button>
         </div>
     </div>
-
-    <script src="https://unpkg.com/browse/qr-scanner@1.4.2/qr-scanner.min.js"></script>
-
-    <script type="module">
-        import QrScanner from 'https://unpkg.com/qr-scanner@1.4.2/qr-scanner.min.js';
+    <script src="qr-scanner.js"></script><script type="module">
+        import QrScanner from 'https://cdn.jsdelivr.net/npm/qr-scanner@1.4.2/qr-scanner.min.mjs';
         
-        window.QrScanner = QrScanner; // Make it globally available
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoElement = document.getElementById('scanner');
+            const resultElement = document.getElementById('scanResult');
+            
+            const scanner = new QrScanner(
+                videoElement,
+                result => {
+                    resultElement.textContent = result;
+                    console.log('Scanned:', result);
+                },
+                {
+                    // Optional configuration
+                    highlightScanRegion: true,
+                    highlightCodeOutline: true,
+                }
+            );
+            
+            // Start scanning immediately when page loads
+            scanner.start()
+                .then(() => {
+                    console.log('Scanner started successfully');
+                })
+                .catch(error => {
+                    console.error('Error starting scanner:', error);
+                    resultElement.textContent = 'Failed to start camera';
+                });
+            
+            // Optional: Add event listeners for manual controls
+            document.getElementById('stop-scanner')?.addEventListener('click', () => scanner.stop());
+            document.getElementById('toggle-flash')?.addEventListener('click', () => {
+                if (scanner.hasFlash()) {
+                    scanner.toggleFlash();
+                } else {
+                    alert('No flash available on this device');
+                }
+            });
+    
+            // Cleanup when leaving the page
+            window.addEventListener('beforeunload', () => {
+                scanner.stop();
+                scanner.destroy();
+            });
+        });
     </script>
-    <script src="qr-scanner.js"></script>
 </body>
 </html>
